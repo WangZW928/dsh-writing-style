@@ -1,0 +1,58 @@
+                                                                               1.2 GMRES 方法
+
+另初始误差为：r0 = v1 ∗β，则有r0 = V m+1βe1 则上式可以进一步简化为：
+
+                           min||V m+1(βe1 −Hm+1,mym)||
+
+根据模的定义：
+                                                      ||x|| = xTx
+
+利用V m+1 列正交的性质可以推导：
+                  ||V m+1x|| = (V m+1x)TV m+1x = xTV Tm+1V m+1x = ||x||
+
+于是，GMRES 的求解目标等价为：
+
+                               min||βe1 −Hm+1,mym||
+
+上式的求解通过Givens 变化来进行求解：
+
+                           min||Qβe1 −QHm+1,mym||
+
+其中，Q = Gm ◦Gm−1 ◦... ◦G1，Q 是一个酉矩阵，这里利用了酉矩阵的性质。目的是将上
+Hessenberg 矩阵变换为上三角矩阵，然后通过回代求解线性方程组，其解为ym，最后系统的
+解为：
+
+                              x = x0 + V mym
+
+  输入参数
+
+  矩阵A
+
+   初始解x0
+   右手项b
+  执行步骤
+
+   1. r0 = b −Ax0，β = ||r0||2，v1 = r0/β，λ = βe1
+   2. loop(j) : 1 →m
+
+        (a). loop(i) : 1 →j
+
+                    hi,j = ⟨Avj, vi⟩
+        (b). loop(i) : 1 →j −1
+
+                    hi:i+1,j = Gihi:i+1,j
+        (c). wj = Avj −∑ji=1 hi,jvi
+        (d). hj+1,j = ||wj||
+        (e). 若hj+1,j = 0，则退出，否则执行：vj+1 =  wj                                                                         hj+1,j
+         (f). 计算Givens 因子：                           (    )
+                                                                cj    sj
+                                Gj =
+                                            −sj   cj
+        √
+             ρ =   h2j,j + h2j+1,j
+                   cj = hj,j/ρ
+                  sj = hj+1,j/ρ
+
+
+
+                                            2

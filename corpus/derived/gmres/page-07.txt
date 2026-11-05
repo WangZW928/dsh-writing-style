@@ -1,0 +1,65 @@
+                                                       1.3 结合FVM 的无矩阵GMRES 方法
+
+    (d). loop(i) : 1 →j
+
+           Hessenberg 矩阵系数计算(MGS)：
+                ⊎N  ⊎N   ⊎N
+                                             hi,j = ⟨    wj,l,   vi,l⟩=    ⟨wj,l, vi,l⟩
+
+                                               l=1     l=1        l=1
+      (核函数实现，已写完)
+
+          G-S 正交化：
+                     ⊎N
+                          wj−= hi,j     vi,l
+
+                                                              l=1
+
+      (核函数实现，已写完)
+
+     (e). Hessenberg 矩阵系数计算
+                    √   ⊎N
+                                   hj+1,j = ||wj|| =   hs, hs =     ||wj,l||2
+
+                                                                   l=1
+      其中，hj+1,j 的计算在设备端实现(已写完)，hs 的计算在核函数实现(已写完)
+     (f). 若hj+1,j = 0，则退出(已写完)。
+    (g). 新的基向量归一化(核函数实现，已写完)：
+                              ⊎N
+                                                          l=1 wj,l
+                                          vj+1 =
+                                                         hj+1,j
+    (h). loop(i) : 1 →j −1
+
+           Hessenberg 矩阵累计系数的Givens 变换(设备函数实现，已写完):
+
+                                                        hi:i+1,j = Gihi:i+1,j
+
+      (i). 计算Givens 因子(设备函数实现，已写完)：
+                         (    )
+                                                            cj    sj
+                              Gj =
+                                         −sj   cj
+       √
+           ρ =   h2j,j + h2j+1,j
+               cj = hj,j/ρ
+              sj = hj+1,j/ρ
+      (j). Hessenberg 矩阵当前系数的Givens 变换(设备函数实现，已写完)
+
+                                                 hj:j+1,j = Gjhj:j+1,j
+
+    (k). β 向量的Givens 变换(设备函数实现，已写完)
+
+                                              λj:j+1 = Gjλj:j+1
+
+      (l). 若λj+1 = 0，退出循环，否则继续(已写完)。
+5. 上三角矩阵的回代过程（设备函数实现，已写完）：loop(i) : m →1
+
+               ∑m                                      1
+                                            yi =    (λi −       hi,jyj)
+                                                          hi,i                                                      j=i+1
+
+
+
+
+                                         5

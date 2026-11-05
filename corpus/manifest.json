@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "importedOn": "2026-11-05",
+  "visibility": "private",
+  "records": [
+    {
+      "id": "A",
+      "title": "AMReX开发中的AI助力总结",
+      "sourceType": "user-attachment",
+      "path": "corpus/originals/AMReX开发中的AI助力总结.zip",
+      "bytes": 2696581,
+      "sha256": "eaee78c55c972b5ee475cb3a73a0dfd42855c78c67363fd17f6953aea51627a1"
+    },
+    {
+      "id": "B",
+      "title": "KubeCon China 2026 参会技术报告",
+      "sourceType": "user-attachment",
+      "path": "corpus/originals/KubeCon China 2026 参会技术报告.zip",
+      "bytes": 4861127,
+      "sha256": "e10fadcf3ade5015e104706d493004ba4e602310af56f46c256e331e2cc857e0"
+    },
+    {
+      "id": "C",
+      "title": "异构编程的编译流程（笔记）",
+      "sourceType": "user-attachment",
+      "path": "corpus/originals/异构编程的编译流程（笔记）.zip",
+      "bytes": 565814,
+      "sha256": "6655819930e4e76eccfb0636601c591352a8649a9315040f0dc3c8829159b7b2"
+    },
+    {
+      "id": "D",
+      "title": "硕士毕业致谢",
+      "sourceType": "user-message-transcribed",
+      "path": "corpus/originals/硕士毕业致谢.tex",
+      "bytes": 6981,
+      "sha256": "fe94d7624f65f5588635dc24ad42e9a12a025ac31c92d3b24efc3ecf4dbc3943",
+      "note": "Transcribed from the user-provided LaTeX message; no independent attachment hash was supplied. Preserved wording, comments and markup."
+    },
+    {
+      "id": "E",
+      "title": "无矩阵的GMRES方法简介",
+      "sourceType": "user-attachment",
+      "path": "corpus/originals/无矩阵的GMRES方法简介.pdf",
+      "bytes": 844988,
+      "sha256": "3308a11586d9d62494e51fb6ed780de17abb23c666d9b48a03414c24fb60abaa"
+    }
+  ],
+  "pendingWebSources": [
+    {
+      "url": "https://zhuanlan.zhihu.com/p/622966920",
+      "status": "not-read",
+      "reason": "No article body obtained; excluded from style evidence"
+    },
+    {
+      "url": "https://zhuanlan.zhihu.com/p/7513019275",
+      "status": "not-read",
+      "reason": "No article body obtained; excluded from style evidence"
+    },
+    {
+      "url": "https://zhuanlan.zhihu.com/p/7731807935",
+      "status": "not-read",
+      "reason": "No article body obtained; excluded from style evidence"
+    }
+  ]
+}

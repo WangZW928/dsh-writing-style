@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "dossierVersion": "0.3",
+  "sourceCount": 5,
+  "status": "prototype-candidates-not-author-confirmed",
+  "core": "profiles/core.md",
+  "entry": { "name": "writing-style", "file": "skills/entry.md", "description": "Use the owner's writing style for drafting, revision, style review, or proposing profile updates. Select one primary genre; raw writing samples are not loaded automatically." },
+  "tasks": [
+    { "id": "draft", "name": "writing-style-draft", "file": "skills/draft.md", "label": "起草", "description": "Draft in the owner's writing style using supplied facts and one selected genre. Mark missing material instead of inventing facts or experiences." },
+    { "id": "revise", "name": "writing-style-revise", "file": "skills/revise.md", "label": "润色", "description": "Revise expression in the owner's style while preserving facts, numerical values, formulas, code, citations and identity boundaries." },
+    { "id": "review", "name": "writing-style-review", "file": "skills/review.md", "label": "风格复核", "description": "Review style with short quotations from the submitted draft, separated observations and suggestions, without invented similarity percentages." },
+    { "id": "feedback", "name": "writing-style-feedback", "file": "skills/feedback.md", "label": "更新建议", "description": "Compare the user's original and edited text and propose evidence-based style rule changes for human confirmation; never apply them automatically." }
+  ],
+  "genres": [
+    { "id": "work-summary", "name": "writing-style-work-summary", "file": "profiles/genres/work-summary.md", "label": "工作复盘", "description": "Genre guidance for work summaries and retrospectives: task-specific effects, constraints and grounded personal observations." },
+    { "id": "conference-report", "name": "writing-style-conference-report", "file": "profiles/genres/conference-report.md", "label": "会议技术报告", "description": "Genre guidance for conference reports: relevance-based selection, source attribution and implications for the current work." },
+    { "id": "technical-note", "name": "writing-style-technical-note", "file": "profiles/genres/technical-note.md", "label": "技术学习笔记", "description": "Genre guidance for technical learning notes: comparisons, intermediate artifacts and explanations without mandatory final-summary templates." },
+    { "id": "numerical-development", "name": "writing-style-numerical-development", "file": "profiles/genres/numerical-development.md", "label": "数值算法实现参考", "description": "Genre guidance for numerical implementation notes: mathematical relations, execution mapping, constraints and implementation status distinct from validation." },
+    { "id": "personal-narrative", "name": "writing-style-personal-narrative", "file": "profiles/genres/personal-narrative.md", "label": "个人叙事与致谢", "description": "Genre guidance for personal narratives and acknowledgments: real experiences, direct feelings and relationship-dependent tone; humor and self-reflection remain optional candidates." }
+  ]
+}

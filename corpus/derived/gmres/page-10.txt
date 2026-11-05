@@ -1,0 +1,67 @@
+                                                                            1.5 适配预条件矩阵
+
+Algorithm 1 Matrix-free GMRES with block scalar-Jacobi preconditioning
+Require: Current flow field uk; residual operator R(·); maximum Krylov dimension m
+Ensure: Updated solution uk+1
+     ⊎N {      }
+ 1: r0 =   l=1 −R(ukl )
+      ⊎N 2: βs =   l=1 ∥rl,0∥2,    β = √βs
+ 3: λ = βe1           {(           ∑              )−1}                             |Ωl|      −1  ⊎N
+ 4: M  =   l=1    ∆t +   j∈N(l)(|ul,j| + cj)Sj
+     ⊎N   rl,0
+ 5: v1 =   l=1  β
+ 6: for j = 1 to m do
+       ⊎N                     √ϵmach
+ 7:    ϵs =   l=1 ∥vj,l∥2,     ϵ = √ϵs+10−30
+             −1
+ 8:    v⋆j,l = M l   vj,l           {                  }
+       ⊎N     |Ωl|       R(uk,l+ϵv⋆j,l)−R(uk,l)
+ 9:   wj =   l=1  ∆t v⋆j,l +             ϵ
+10:    for i = 1 to j do
+         ⊎N
+11:        hi,j =   l=1⟨wj,l, vi,l⟩
+12:     wj = wj −hi,jvi
+
+13:   end for
+        √⊎N
+14:    hj+1,j =     l=1 ∥wj,l∥2
+15:     if hj+1,j = 0 then
+
+16:     break
+
+17:   end if
+                wj
+18:   vj+1 = hj+1,j
+19:    for i = 1 to j −1 do
+
+20:        hi:i+1,j = Gi hi:i+1,j
+
+21:   end for
+     √
+                                                hj,j           hj+1,j
+22:   ρ =   h2j,j + h2j+1,j,   cj =  ρ  ,   sj =   ρ
+23:    hj:j+1,j = Gj hj:j+1,j,     λj:j+1 = Gj λj:j+1
+24:     if λj+1 = 0 then
+
+25:     break
+
+26:   end if
+
+27: end for
+
+28: for i = m down to 1 do           (             )
+         −∑mj=i+1 hi,jyj29:    yi = hi,i1   λi
+30: end for
+       ⊎N {       −1 ∑m     }
+31: uk+1 =   l=1 uk + M l     i=1 vi,lyi
+
+
+  输入参数
+
+   当前时间步流场uk
+   初始解δuk = 0 （守恒变量）
+
+   残差项算子R(.) = F C(.) −F G(.) −Q(.)
+
+
+                                            8

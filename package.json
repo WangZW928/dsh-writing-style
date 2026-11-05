@@ -1,0 +1,32 @@
+{
+  "name": "dsh-writing-style",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Private, genre-aware writing-style skills for DeepSeek Harness, based on a versioned user-reviewed dossier.",
+  "type": "module",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "author": "WangZW928",
+  "repository": { "type": "git", "url": "git+https://github.com/WangZW928/dsh-writing-style.git" },
+  "engines": { "node": ">=22", "dsh": ">=0.2.1-rc.5 <0.2.2-0" },
+  "peerDependencies": { "@deepseek-ai/dsh-skill": ">=0.2.1-rc.5 <0.2.2-0" },
+  "devDependencies": { "@deepseek-ai/cordis": "4.0.5", "@deepseek-ai/dsh-skill": "0.2.1-rc.5" },
+  "bin": { "dsh-writing-style": "bin/cli.js" },
+  "dsh": { "manifestVersion": 1, "bundle": { "patch": "./cordis.patch.yml" } },
+  "icon": "assets/icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./profile": "./lib/profile.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./assets/icon.svg"
+  },
+  "files": ["index.js", "lib/", "bin/", "skills/", "profiles/", "locale/", "assets/", "cordis.patch.yml", "README.md", "LICENSE", "NOTICE.md", "!**/.env", "!**/.env.*", "!**/__pycache__/**"],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "check": "node --check index.js && node --check lib/profile.js && node --check bin/cli.js && npm test",
+    "check:corpus": "python3 scripts/check-corpus.py",
+    "prepack": "npm run check"
+  }
+}

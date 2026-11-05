@@ -1,0 +1,7 @@
+# Preserve original attachments and transcribed source text without checkout filters.
+corpus/originals/** -text
+*.zip binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.webp binary

@@ -1,0 +1,48 @@
+      第1 章无矩阵的GMRES 方法
+
+
+1.1 Arnoldi 过程（MGS）
+
+   此处梳理一下Arnoldi 过程（MGS）的基础算法
+  输入参数
+
+  矩阵A
+
+    初始误差(error) r0
+  执行步骤
+   1. 归一化初始误差作为Krylov 子空间的第一个基矢量: v1 =  r0                                                                                                                  ||r0||
+   2. loop(j) : 1 →m
+
+        (a). loop(i) : 1 →j
+
+                    hi,j = ⟨Avj, vi⟩
+        (b). wj = Avj −∑ji=1 hi,jvi
+        (c). hj+1,j = ||wj||
+        (d). 若||wj|| = 0，则退出，否则执行：vj+1 =  wj                                                                         hj+1,j
+  输出参数
+
+     上Hessenberg 矩阵Hm+1,m, 其元素为hi,j
+     Krylov 子空间正交基V m = [vi, ..., vm]
+   由上述Arnoldi 过程可得：
+              ∑j
+                                vj+1 ∗hj+1,j +     hi,jvi = Avj
+
+                                                    i=1
+  写为矩阵形式有：
+
+                      V m+1Hm+1,m = AV m
+
+
+1.2 GMRES 方法
+
+  此处梳理一下GMRES 方法的基础原理：根据其广义残差最小的要求有:
+
+                                       min||b −Au||
+
+GMRES 近似解由Krylov 子空间的基线性表出：
+
+                              u = u0 + V mym
+
+代入GMRES 的约束，并且代入Arnoldi 过程的表达式：
+
+                                min||r0 −V m+1Hm+1,mym||
