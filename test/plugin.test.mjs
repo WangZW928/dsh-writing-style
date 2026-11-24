@@ -16,7 +16,7 @@ test('manifest is private, declares a complete DSH host bundle, and exports runt
   const pkg = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'));
   assert.equal(pkg.private, true);
   assert.equal(pkg.name, 'dsh-writing-style');
-  assert.equal(pkg.version, '0.1.0');
+  assert.equal(pkg.version, '0.1.1');
   assert.equal(pkg.dsh.bundle.patch, './cordis.patch.yml');
   assert.match(await readFile(join(packageRoot, pkg.dsh.bundle.patch), 'utf8'), /name: dsh-writing-style/);
   assert.equal(pkg.scripts.prepare, undefined);
@@ -28,7 +28,8 @@ test('four tasks, five genre branches, and ten unique skill descriptors are expl
   const list = listProfiles();
   assert.equal(list.tasks.length, 4);
   assert.equal(list.genres.length, 6); // Five branches plus general/core-only.
-  assert.equal(list.dossierVersion, '0.3');
+  assert.equal(list.dossierVersion, '0.4');
+  assert.equal(list.referenceCount, 1);
   assert.equal(list.sourceCount, 5);
   const descriptors = skillDescriptors();
   assert.equal(descriptors.length, 10);
@@ -62,6 +63,37 @@ test('all 24 task/genre combinations contain exactly one selected branch or core
   assert.equal(defaults.genre, 'general');
 });
 
+test('five user-confirmed reference rules load only in the technical-note genre', async () => {
+  const ids = ['R01-C1', 'R01-C2', 'R01-C3', 'R01-C4', 'R01-C5'];
+  const skill = await loadSkill('writing-style-technical-note');
+  assert.match(skill, /本人样本数量：5；外部参考数量：1/);
+  assert.match(skill, /袁野《电动力学讲义》/);
+  assert.match(skill, /作用域为技术学习笔记（genre）/);
+  for (const task of profileManifest.tasks) {
+    for (const genre of listProfiles().genres) {
+      const { content } = await composePrompt({ task: task.id, genre: genre.id });
+      for (const id of ids) assert.equal(content.includes(id), genre.id === 'technical-note', `${task.id}/${genre.id}/${id}`);
+    }
+  }
+  for (const id of ids) assert.equal(skill.split(id).length - 1, 1, id);
+  for (const term of ['不强造对立', '形式表达、可计算、已实现和已测试分别记录', '总体优劣', '不为模仿探索口吻而虚构', '生活比喻不代替严格定义']) assert.ok(skill.includes(term), term);
+});
+
+test('adopted reference metadata preserves author attribution and original sample count', async () => {
+  const confirmed = profileManifest.confirmedRuleSets.find(({ id }) => id === 'R01');
+  assert.equal(profileManifest.sourceCount, 5);
+  assert.equal(profileManifest.referenceCount, 1);
+  assert.equal(confirmed.sourceAuthor, '袁野');
+  assert.equal(confirmed.sourceTitle, '电动力学讲义');
+  assert.equal(confirmed.isUserAuthored, false);
+  assert.equal(confirmed.confirmedOn, '2026-11-24');
+  assert.equal(confirmed.genre, 'technical-note');
+  assert.equal(confirmed.scope, 'genre');
+  assert.deepEqual(confirmed.ruleIds, ['R01-C1', 'R01-C2', 'R01-C3', 'R01-C4', 'R01-C5']);
+  // Public tests verify curated metadata without requiring unpublished source files.
+  assert.equal(profileManifest.dossierVersion, '0.4');
+});
+
 test('unknown task or genre is rejected rather than falling back silently', async () => {
   await assert.rejects(composePrompt({ task: 'publish' }), /Unknown task/);
   await assert.rejects(composePrompt({ genre: 'blog-inferred' }), /Unknown genre/);
@@ -93,7 +125,7 @@ test('real DSH registry loads ten skills, respects overrides, and removes provid
     assert.equal(summary.provider, 'writing-style-private');
     assert.equal(summary.source, 'bundled');
     const skill = await ctx.skills.get(summary.name);
-    assert.match(skill.content, /风格档案版本：0.3/);
+    assert.match(skill.content, /风格档案版本：0\.4/);
     assert.equal(skill.invocation.userInvocable, true);
     await access(skill.path);
     assert.ok(skill.resourceBase.path.startsWith(packageRoot));

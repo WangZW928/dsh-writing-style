@@ -1,8 +1,12 @@
 {
   "schemaVersion": 1,
-  "dossierVersion": "0.3",
+  "dossierVersion": "0.4",
   "sourceCount": 5,
-  "status": "prototype-candidates-not-author-confirmed",
+  "referenceCount": 1,
+  "status": "基础规则继续校准；技术学习笔记 R01 五条已于 2026-11-24 确认采用",
+  "confirmedRuleSets": [
+    { "id": "R01", "scope": "genre", "genre": "technical-note", "ruleIds": ["R01-C1", "R01-C2", "R01-C3", "R01-C4", "R01-C5"], "confirmedOn": "2026-11-24", "sourceAuthor": "袁野", "sourceTitle": "电动力学讲义", "isUserAuthored": false }
+  ],
   "core": "profiles/core.md",
   "entry": { "name": "writing-style", "file": "skills/entry.md", "description": "Use the owner's writing style for drafting, revision, style review, or proposing profile updates. Select one primary genre; raw writing samples are not loaded automatically." },
   "tasks": [

@@ -1,6 +1,6 @@
 {
   "name": "dsh-writing-style",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Private, genre-aware writing-style skills for DeepSeek Harness, based on a versioned user-reviewed dossier.",
   "type": "module",
